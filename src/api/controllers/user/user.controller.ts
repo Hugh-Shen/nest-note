@@ -39,7 +39,7 @@ export class UserController {
 
   @Put(':id')
   @ApiOperation({ summary: '更新用户信息' })
-  @ApiResponse({ status: 200, description: '用户信息更新成功' })
+  @ApiResponse({ status: 200, description: '更新用户成功' })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() userData: UpdateUserDto,
@@ -49,14 +49,12 @@ export class UserController {
 
   @Get()
   @ApiOperation({ summary: '获取全部用户信息' })
-  @ApiResponse({ status: 200, description: '获取全部用户信息成功' })
   async findAll() {
     return this.userService.paginate(1, 10);
   }
 
   @Get(':id')
   @ApiOperation({ summary: '获取用户信息' })
-  @ApiResponse({ status: 200, description: '获取用户信息成功' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const user = await this.userService.findById(id);
 
