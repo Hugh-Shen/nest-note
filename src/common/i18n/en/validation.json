@@ -1,0 +1,12 @@
+{
+  "validation": {
+    "required": "{property} is required",
+    "minLength": "{property} must be longer than {constraints.0} characters",
+    "maxLength": "{property} must be shorter than {constraints.0} characters",
+    "isEmail": "Please provide a valid email address",
+    "isString": "{property} must be a string",
+    "isNumber": "{property} must be a number",
+    "min": "{property} must not be less than {constraints.0}",
+    "max": "{property} must not be greater than {constraints.0}"
+  }
+}

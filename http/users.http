@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "username": "张三",
-  "password": "123456",
-  "email": "zhangsan@example.com"
+  "email": "hugh@qq.com",
+  "password": "123456"
 }
 
 ### 删除用户

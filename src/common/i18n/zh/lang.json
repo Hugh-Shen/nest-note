@@ -1,0 +1,6 @@
+{
+  "user": {
+    "notFound": "用户不存在",
+    "createError": "创建用户失败"
+  }
+}

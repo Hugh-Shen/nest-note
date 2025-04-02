@@ -9,4 +9,5 @@ export const dbConfig: DataSourceOptions = {
   port: 3306,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: true,
+  logging: false,
 };

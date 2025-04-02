@@ -1,0 +1,8 @@
+### 登录
+POST http://localhost:3000/auth
+Content-Type: application/json
+
+{
+	"username": "admin",
+	"password": "123456"
+}

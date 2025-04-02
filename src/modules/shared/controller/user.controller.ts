@@ -7,16 +7,24 @@ import {
   Body,
   Param,
   NotFoundException,
+  Injectable,
+  Inject,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { ParseIntPipe } from '@nestjs/common/pipes';
-import { UserService } from '@/shared/services/user.service';
-import { UserDto, UpdateUserDto } from '@/shared/dtos/user.dto';
+import { UserService } from '@/modules/shared/services/user.service';
+import { UserDto, UpdateUserDto } from '@/modules/shared/dtos/user.dto';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 @ApiTags('users')
 @Controller('users')
+@Injectable()
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: '创建用户' })
@@ -27,7 +35,17 @@ export class UserController {
     type: UserDto,
   })
   async create(@Body() userData: UserDto) {
-    return this.userService.create(userData);
+    try {
+      const result = await this.userService.create(userData);
+      return result;
+    } catch (error: unknown) {
+      // 记录错误日志
+      this.logger.error('Failed to create user', {
+        error: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+      });
+      throw error;
+    }
   }
 
   @Delete(':id')
@@ -59,7 +77,8 @@ export class UserController {
     const user = await this.userService.findById(id);
 
     if (!user) {
-      throw new NotFoundException('用户不存在');
+      // 使用i18n翻译错误消息
+      throw new NotFoundException('user.notFound');
     }
 
     return user;

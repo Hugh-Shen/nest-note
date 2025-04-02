@@ -14,6 +14,18 @@ export class MysqlService<T extends { id: number }> {
     return this.repository.findOneBy({ id } as FindOptionsWhere<T>);
   }
 
+  async findByEmail(email: string): Promise<T | null> {
+    return this.repository.findOneBy({
+      email,
+    } as unknown as FindOptionsWhere<T>);
+  }
+
+  async findByUsername(username: string): Promise<T | null> {
+    return this.repository.findOneBy({
+      username,
+    } as unknown as FindOptionsWhere<T>);
+  }
+
   async create(entity: Partial<T>): Promise<T> {
     return this.repository.save(entity as T);
   }

@@ -1,13 +1,18 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dbConfig } from '@/config/dbConfig';
+import { dbConfig } from '@/config/db.config';
+import { winstonConfig } from '@/config/winston.config';
 import { UserEntity } from './entity/user.entity';
 import { UserService } from './services/user.service';
-import { UserController } from '@/api/controllers/user/user.controller';
+import { UserController } from '@/modules/shared/controller/user.controller';
+import { WinstonModule } from 'nest-winston';
 
 @Global()
 @Module({
   imports: [
+    WinstonModule.forRootAsync({
+      useFactory: winstonConfig,
+    }),
     TypeOrmModule.forRootAsync({
       useFactory: () => dbConfig,
     }),
@@ -15,7 +20,11 @@ import { UserController } from '@/api/controllers/user/user.controller';
   ],
   providers: [UserService],
   controllers: [UserController],
-  exports: [UserService, TypeOrmModule.forFeature([UserEntity])],
+  exports: [
+    UserService,
+    TypeOrmModule.forFeature([UserEntity]),
+    WinstonModule, // 导出 WinstonModule，使其在其他模块中可用
+  ],
 })
 export class SharedModule {
   constructor() {}

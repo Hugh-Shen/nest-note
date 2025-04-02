@@ -1,0 +1,12 @@
+{
+  "validation": {
+    "required": "{property}不能为空",
+    "minLength": "{property}长度不能少于{constraints.0}个字符",
+    "maxLength": "{property}长度不能超过{constraints.0}个字符",
+    "isEmail": "请输入有效的邮箱地址",
+    "isString": "{property}必须是字符串类型",
+    "isNumber": "{property}必须是数字类型",
+    "min": "{property}不能小于{constraints.0}",
+    "max": "{property}不能大于{constraints.0}"
+  }
+}

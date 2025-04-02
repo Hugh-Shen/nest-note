@@ -1,0 +1,6 @@
+{
+  "user": {
+    "notFound": "User not found",
+    "createError": "Error creating user"
+  }
+}
