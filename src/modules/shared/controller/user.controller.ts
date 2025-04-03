@@ -16,6 +16,7 @@ import { UserService } from '@/modules/shared/services/user.service';
 import { UserDto, UpdateUserDto } from '@/modules/shared/dtos/user.dto';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
+import { Public } from '@/common/decorators/public.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -26,6 +27,7 @@ export class UserController {
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
   ) {}
 
+  @Public()
   @Post()
   @ApiOperation({ summary: '创建用户' })
   @ApiBody({ type: UserDto })

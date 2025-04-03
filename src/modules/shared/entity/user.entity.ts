@@ -16,7 +16,7 @@ export class UserEntity {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ unique: true })
   password: string;
 
   @UpdateDateColumn()

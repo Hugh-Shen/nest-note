@@ -6,6 +6,6 @@ export class LoginDto extends PickType(UserDto, [
   'username',
   'password',
 ] as const) {
-  @ApiProperty({ description: '用户登录凭证', example: '用户名或邮箱' })
+  @ApiProperty({ description: '用户登录凭证', example: '用户名' })
   username: string;
 }

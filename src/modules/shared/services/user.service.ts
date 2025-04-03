@@ -27,20 +27,16 @@ export class UserService extends MysqlService<UserEntity> {
   }
 
   async create(entity: Partial<UserEntity>): Promise<UserEntity> {
-    if (entity.email) {
-      const existingUser = await this.findByEmail(entity.email);
-      if (existingUser) {
-        throw new ConflictException('该邮箱已被注册');
-      }
+    // 直接进行用户名唯一性检查
+    const existingUser = await this.findByUsername(entity.username!);
+    if (existingUser) {
+      throw new ConflictException('该用户名已被注册');
     }
 
-    if (entity.email) {
-      await super.findByEmail(entity.email);
-    }
+    // 加密密码
+    entity.password = await this.hashPassword(entity.password!);
 
-    if (entity.password) {
-      entity.password = await this.hashPassword(entity.password);
-    }
+    // 创建用户
     return super.create(entity);
   }
 
