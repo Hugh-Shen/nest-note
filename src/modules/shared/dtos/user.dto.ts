@@ -1,6 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import { IsString, IsEmail, MinLength, Matches } from 'class-validator';
-import { Type, Expose } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import { ApiProperty, PartialType, OmitType } from '@nestjs/swagger';
 
 export class UserDto {
@@ -15,12 +15,7 @@ export class UserDto {
   email: string;
 }
 
-export class UpdateUserDto extends PartialType(UserDto) {
-  @ApiProperty({ example: 1, description: '用户ID' })
-  @Type(() => Number)
-  @Expose()
-  id?: number;
-}
+export class UpdateUserDto extends PartialType(UserDto) {}
 
 export class UserResponseDto extends OmitType(UserDto, ['password']) {
   constructor(partial: Partial<UserDto>) {
