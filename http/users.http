@@ -3,7 +3,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "username": "lisi",
+  "username": "wangwu",
   "email": "hugh@qq.com",
   "password": "123456"
 }
@@ -15,10 +15,11 @@ Authorization: ""
 ### 更新用户
 Put http://localhost:3000/users/8
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxpc2kiLCJzdWIiOjgsImlhdCI6MTc0Mzk5MTQ4MiwiZXhwIjoxNzQzOTk1MDgyfQ.apI1WSqB4RWsDtRJqIaYjU9ZWRR70foEmShzSG09O-I
 
 {
   "username": "lisi",
-  "email": "lisi@qq.com"
+  "email": "lisi@lookout.com"
 }
 
 ### 获取所有用户

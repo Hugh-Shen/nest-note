@@ -1,10 +1,17 @@
-import { JwtModuleOptions } from '@nestjs/jwt';
-import { jwtConstants } from '../modules/auth/constants';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtModuleOptions, JwtOptionsFactory } from '@nestjs/jwt';
 
-export const jwtConfig = (): JwtModuleOptions => {
-  return {
-    global: true,
-    ...jwtConstants,
-    signOptions: { expiresIn: '60s' },
-  };
-};
+@Injectable()
+export class JwtConfigService implements JwtOptionsFactory {
+  constructor(private configService: ConfigService) {}
+
+  createJwtOptions(): JwtModuleOptions {
+    return {
+      secret: this.configService.get<string>('jwt.secret'),
+      signOptions: {
+        expiresIn: this.configService.get<string>('jwt.expiresIn'),
+      },
+    };
+  }
+}
